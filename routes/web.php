@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +22,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/usuarios',[UserController::class,'index']);
+
+Route::get('/carga-producto',[ProductController::class,'index']);
+
+
+Route::post('/carga-producto',[ProductController::class,'upload'])->name('upload.product');
 
 require __DIR__.'/auth.php';
