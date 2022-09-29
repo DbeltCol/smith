@@ -54,22 +54,10 @@ class ProductController extends Controller
         }
     }
 
- /*    private function processCmd($input, $output, $password)
-    {
-
-        $process = new Process(["echo", "$password", "|", "/usr/bin/gpg","--passphrase-fd", "0", "-o", "$output", "-d", "$input"]);
-        $process->run();
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-        return $process->getOutput();
-    }
- */
-
     function decrypt_command ($input,$output,$passphrase)
     {
 
-        $gpg_command = "/usr/bin/gpg --homedir /home/diego/.gnupg --passphrase-fd 0 --yes --no-tty --skip-verify -o $output -d $input ";
+        $gpg_command = "/usr/bin/gpg --pinentry-mode loopback --passphrase=\"$passphrase\" --homedir /home/diego/.gnupg -o $output --yes --no-tty --skip-verify -d $input ";
     
         $descriptors = array(
                 0 => array("pipe", "r"), //stdin
